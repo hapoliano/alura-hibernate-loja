@@ -23,10 +23,15 @@ public class CadastroDeProduto {
 		em.getTransaction().begin();
 		
 		categoriaDao.cadastrar(celulares);
-		produtoDao.cadastrar(celular);
+		celulares.setNome("XPTO");
 		
-		em.persist(celular);
-		em.getTransaction().commit();
-		em.close();
+		em.flush();
+		em.clear();
+		
+		celulares = em.merge(celulares);
+		celulares.setNome("1234");
+		em.flush();
+		em.remove(celulares);
+		em.flush();
 	}
 }
