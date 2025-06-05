@@ -22,26 +22,26 @@ public class CadastroDeProduto {
 		System.out.println(p.getPreco());
 		
 		List<Produto> todos = produtoDao.buscarPorNomeDaCategoria("CELULARES");
-		todos.forEach(p2 -> System.out.println(p2.getNome()));
-		
-		BigDecimal precoDoProduto = produtoDao.buscarPrecoDoProdutoComNome("Galaxy S23 Ultra");
-		System.out.println("Preço do produto: " + precoDoProduto);
+		todos.forEach(p2 -> System.out.println(p.getNome()));
+	
+		BigDecimal precoDoProduto = produtoDao.buscarPrecoDoProdutoComNome("Xiaomi Redmi");
+		System.out.println("Preco do Produto: " +precoDoProduto);
 	}
 
 	private static void cadastrarProduto() {
 		Categoria celulares = new Categoria("CELULARES");
-		Produto celular = new Produto("Galaxy S23 Ultra", "Muito legal", new BigDecimal("4000"), celulares);
-
+		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), celulares );
+		
 		EntityManager em = JPAUtil.getEntityManager();
 		ProdutoDAO produtoDao = new ProdutoDAO(em);
 		CategoriaDAO categoriaDao = new CategoriaDAO(em);
-
+		
 		em.getTransaction().begin();
-
+		
 		categoriaDao.cadastrar(celulares);
-        produtoDao.cadastrar(celular);
-
-        em.getTransaction().commit();
-        em.close();
+		produtoDao.cadastrar(celular);
+		
+		em.getTransaction().commit();
+		em.close();
 	}
 }
